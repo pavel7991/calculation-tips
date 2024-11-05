@@ -1,0 +1,24 @@
+.container {
+  width: min(100% - 40px, 600px);
+  margin-inline: auto;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Убираем стрелки для Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+label {
+  font-size: 0.8rem !important;
+}
+
+input {
+  height: 46px !important;
+  min-height: 46px !important;
+}
