@@ -4,10 +4,15 @@ const rowContent = form.querySelector('#row-content')
 const addBtn = form.querySelector('#add-row-btn')
 const calcBtn = form.querySelector('#calc-btn')
 
+const modal = document.querySelector('#Modal')
+const modalBody = modal.querySelector('#table-body')
+const outputDailyEarnings = modal.querySelector('#daily-earnings')
+
 let Waiter = {}
 let generealEarnings // общий заработок 
 let generalTips // общие чаевые
 let dailyEarnings // забработок за день на 1 оффицианта
+
 
 
 function createRow() {
@@ -19,11 +24,11 @@ function createRow() {
             <label for="floatingInput" class="mx-1">Имя</label>
           </div>
           <div class="form-floating mb-3 col-3 p-1">
-            <input type="number" name="cashbox" class="form-control rounded-3" placeholder="Касса">
+            <input type="number" name="cashbox" inputmode="numeric" pattern="[0-9]*" class="form-control rounded-3" placeholder="Касса">
             <label for="floatingPassword" class="mx-1">Касса</label>
           </div>
           <div class="form-floating mb-3 col-3 p-1">
-            <input type="number" name="expiranza" class="form-control rounded-3" placeholder="Password">
+            <input type="number" name="expiranza" inputmode="numeric" pattern="[0-9]*" class="form-control rounded-3" placeholder="Password">
             <label for="floatingPassword" class="mx-1">Expiranza</label>
           </div>     
   `
@@ -40,7 +45,7 @@ let readingData = () => {
   generealEarnings = 0
 
   form.querySelectorAll('.row-data').forEach((row, rowIndex) => {
-    const name = row.querySelector('input[name="name"]').value || 'error'
+    const name = row.querySelector('input[name="name"]').value || 'NameERROR'
     const cashbox = row.querySelector('input[name="cashbox"]').value || 'error'
     const expiranza = row.querySelector('input[name="expiranza"]').value || 'error'
     const procentCashbox = cashbox * 0.04
@@ -67,14 +72,24 @@ function calcTips() {
 }
 
 function outputCalc() {
-  let result = ''
+  let html = ''
 
   for (let key in Waiter) {
     const waiter = Waiter[key]
     const tips = (dailyEarnings - waiter.earnings).toFixed(1)
-    result += `${waiter.name} -> касса: ${waiter.cashbox}, ЗП: ${waiter.procentCashbox}, exp: ${waiter.expiranza}, чаевые: ${tips}  \n`
+
+    html += `
+      <tr>
+        <td>${waiter.name}</td>
+        <td>${waiter.cashbox}</td>
+        <td>${waiter.procentCashbox}</td>
+        <td>${waiter.expiranza}</td>
+        <td>${tips}</td>
+      </tr>
+    `
   }
-  return result + `Зароботок за день: ${dailyEarnings}`
+  modalBody.innerHTML = `${html}`
+  outputDailyEarnings.textContent = `${dailyEarnings}`
 }
 
 addBtn.addEventListener('click', () => {
@@ -84,7 +99,9 @@ addBtn.addEventListener('click', () => {
 calcBtn.addEventListener('click', () => {
   Waiter = readingData()
   calcTips()
-  alert(outputCalc())
+  outputCalc()
 })
+
+
 
 
