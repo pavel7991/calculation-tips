@@ -19,15 +19,15 @@ function createRow() {
   const newRow = document.createElement('div');
   newRow.className = 'row row-data'
   newRow.innerHTML = `
-      <div class="form-floating mb-3 col-6 p-1">
+      <div class="form-floating mb-3 col-4 p-1">
             <input type="text" name="name" class="form-control rounded-3" placeholder="Имя">
             <label for="floatingInput" class="mx-1">Имя</label>
           </div>
-          <div class="form-floating mb-3 col-3 p-1">
+          <div class="form-floating mb-3 col-4 p-1">
             <input type="number" name="cashbox" inputmode="numeric" pattern="[0-9]*" class="form-control rounded-3" placeholder="Касса">
             <label for="floatingPassword" class="mx-1">Касса</label>
           </div>
-          <div class="form-floating mb-3 col-3 p-1">
+          <div class="form-floating mb-3 col-4 p-1">
             <input type="number" name="expiranza" inputmode="numeric" pattern="[0-9]*" class="form-control rounded-3" placeholder="Password">
             <label for="floatingPassword" class="mx-1">Expiranza</label>
           </div>     
@@ -84,7 +84,7 @@ function outputCalc() {
         <td>${waiter.cashbox}</td>
         <td>${waiter.procentCashbox}</td>
         <td>${waiter.expiranza}</td>
-        <td>${tips}</td>
+        <td><span class="text-success">${tips}</span></td>
       </tr>
     `
   }
